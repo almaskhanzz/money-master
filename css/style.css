@@ -1,0 +1,48 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.fonts-style{
+    font-family: 'Roboto', sans-serif;
+}
+/* Header section Styles */
+.header-font{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #6B8E23;
+}
+.fa-solid{
+    color: #DAA520;
+    font-size: 35px;
+}
+/* Main Section styles */
+.bg-color{
+    background-color: #F8F8F8;;
+}
+.bg-color-input{
+    background-color: #DCDCDC;
+}
+/* calculate button */
+.btn-calculate{
+    width: 200px;
+    height: 50px;
+    border: none;
+    background-color: #59A5FF;
+    font-size: 20px;
+}
+.btn-calculate:hover{
+    background-color: #0d7dee;
+}
+/* saving part */
+.width-save{
+    width: 132px;
+}
+.btn-save{
+    width: 150px;
+    border: none;
+    background-color: #59A5FF;
+    font-size: 20px;
+}
+.btn-save:hover{
+    background-color: #0d7dee;
+}
