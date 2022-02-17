@@ -116,7 +116,9 @@ function getRemainingBalance() {
     if (isNaN(save) || save < 0) {
         const error = getEmptyError();
         error.style.display = 'block';
-
+        const error2 = getAmountError();
+        error2.style.display = 'none';
+        //clearing text field
         const savingField = document.getElementById('saving-amount');
         savingField.innerText = '';
         const remainBalanceField = document.getElementById('remaining-balance');
@@ -125,11 +127,14 @@ function getRemainingBalance() {
     else {
         const saveIncome = getIncome();
         const savingAmount = (saveIncome * save) / 100;
-        const totalBalance = getBalance()
+        const totalBalance = getBalance();
         //calculating remaining balance
         if (savingAmount > totalBalance) {
             const error = getAmountError();
             error.style.display = 'block';
+            const error2 = getEmptyError();
+            error2.style.display = 'none';
+            //clearing text field
             const savingField = document.getElementById('saving-amount');
             savingField.innerText = '';
             const remainBalanceField = document.getElementById('remaining-balance');
@@ -142,8 +147,11 @@ function getRemainingBalance() {
             savingField.innerText = savingAmount;
             const remainBalanceField = document.getElementById('remaining-balance');
             remainBalanceField.innerText = remainingBalance;
-            const error = getAmountError();
+            //hiding error msg
+            const error = getEmptyError();
             error.style.display = 'none';
+            const error2 = getAmountError();
+            error2.style.display = 'none';
         }
     }
 }

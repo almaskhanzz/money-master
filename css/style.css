@@ -35,7 +35,8 @@
 }
 /* error msg */
 .error-msg{
-    color: red;
+    color: #d80000;
+    font-size: 20px;
     display: none;
 }
 /* saving part */
@@ -50,9 +51,4 @@
 }
 .btn-save:hover{
     background-color: #0d7dee;
-}
-/* remaining balance part */
-.error-msg-save{
-    color: red;
-    display: none;
 }
