@@ -1,8 +1,22 @@
-//function
+//error messages for calculate portion
 function getError() {
     const err = document.getElementById('err-msg');
     return err;
 }
+function getErrorExpenses() {
+    const err = document.getElementById('err-msg2');
+    return err;
+}
+//error messages for save portion
+function getEmptyError() {
+    const err = document.getElementById('err-msg-empty');
+    return err;
+}
+function getAmountError() {
+    const err = document.getElementById('err-msg-amount');
+    return err;
+}
+///////////////////////////////////////////////
 function getExpenses() {
     //expenses......
     //food
@@ -26,18 +40,28 @@ function getExpenses() {
         //clearfield();
         const error = getError();
         error.style.display = 'block';
+        const error2 = getErrorExpenses();
+        error2.style.display = 'none';
     }
     else {
         //calculating tolat expenses
         const totalExpenses = foodCost + rentCost + clothesCost;
         if (totalExpenses > income) {
             const error = getError();
-            error.style.display = 'block';
+            error.style.display = 'none';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'block';
+
         }
         else {
             const expensesField = document.getElementById('total-expenses');
             expensesField.innerText = totalExpenses;
+            const error = getError();
+            error.style.display = 'block';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'none';
             return totalExpenses;
+
         }
         //clearing input field..
         //clearfield();
@@ -51,6 +75,8 @@ function getIncome() {
     if (isNaN(income) || income < 0) {
         const error = getError();
         error.style.display = 'block';
+        const error2 = getErrorExpenses();
+        error2.style.display = 'none';
     }
     else {
         //incomeInput.value = '';
@@ -64,26 +90,38 @@ function getBalance() {
     if (isNaN(totalIncome) || isNaN(totalExpenses)) {
         const error = getError();
         error.style.display = 'block';
+        const error2 = getErrorExpenses();
+        error2.style.display = 'none';
     }
     else {
-        const balance = totalIncome - totalExpenses;
-        const balanceField = document.getElementById('balance');
-        balanceField.innerText = balance;
-        //hiding error msg
-        const error = getError();
-        error.style.display = 'none';
-        return balance;
+        if (totalExpenses > totalIncome) {
+            const error = getError();
+            error.style.display = 'none';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'block';
+
+        }
+        else {
+            const balance = totalIncome - totalExpenses;
+            const balanceField = document.getElementById('balance');
+            balanceField.innerText = balance;
+            //hiding error msg
+            const error = getError();
+            error.style.display = 'none';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'none';
+            return balance;
+        }
     }
 }
 function getRemainingBalance() {
     //remaining balance
-    // const totalSavingAmount = getSave();
     //save
     const saveInput = document.getElementById('save-input');
     const save = parseFloat(saveInput.value);
     //calculating saving amount
     if (isNaN(save) || save < 0) {
-        const error = getError();
+        const error = getEmptyError();
         error.style.display = 'block';
 
         const savingField = document.getElementById('saving-amount');
@@ -97,7 +135,7 @@ function getRemainingBalance() {
         const totalBalance = getBalance()
         //calculating remaining balance
         if (savingAmount > totalBalance) {
-            const error = getError();
+            const error = getAmountError();
             error.style.display = 'block';
             const savingField = document.getElementById('saving-amount');
             savingField.innerText = '';
@@ -111,6 +149,8 @@ function getRemainingBalance() {
             savingField.innerText = savingAmount;
             const remainBalanceField = document.getElementById('remaining-balance');
             remainBalanceField.innerText = remainingBalance;
+            const error = getAmountError();
+            error.style.display = 'none';
         }
     }
 }
