@@ -16,7 +16,7 @@ function getAmountError() {
     const err = document.getElementById('err-msg-amount');
     return err;
 }
-///////////////////////////////////////////////
+//functions..
 function getExpenses() {
     //expenses......
     //food
@@ -28,15 +28,14 @@ function getExpenses() {
     //clothes
     const clothesInput = document.getElementById('clothes-input');
     const clothesCost = parseFloat(clothesInput.value);
-
-    function clearfield() {
-        foodInput.value = '';
-        rentInput.value = '';
-        clothesInput.value = '';
-    }
     //error handling
     if (isNaN(foodCost) || isNaN(rentCost) || isNaN(clothesCost) || foodCost < 0 || rentCost < 0 || clothesCost < 0) {
-        //clearfield();
+        //clear text field..
+        const expensesField = document.getElementById('total-expenses');
+        expensesField.innerText = '';
+        const balanceField = document.getElementById('balance');
+        balanceField.innerText = '';
+
         const error = getError();
         error.style.display = 'block';
         const error2 = getErrorExpenses();
@@ -44,18 +43,29 @@ function getExpenses() {
     }
     else {
         //calculating tolat expenses
-        const totalExpenses = foodCost + rentCost + clothesCost;
-        const expensesField = document.getElementById('total-expenses');
-        expensesField.innerText = totalExpenses;
-        const error = getError();
-        error.style.display = 'none';
-        const error2 = getErrorExpenses();
-        error2.style.display = 'none';
-        return totalExpenses;
-        //clearing input field..
-        //clearfield();
-    }
+        const totalIncome = getIncome();
+        if (isNaN(totalIncome) || totalIncome < 0) {
+            const expensesField = document.getElementById('total-expenses');
+            expensesField.innerText = '';
+            const balanceField = document.getElementById('balance');
+            balanceField.innerText = '';
 
+            const error = getError();
+            error.style.display = 'block';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'none';
+        }
+        else {
+            const totalExpenses = foodCost + rentCost + clothesCost;
+            const expensesField = document.getElementById('total-expenses');
+            expensesField.innerText = totalExpenses;
+            const error = getError();
+            error.style.display = 'none';
+            const error2 = getErrorExpenses();
+            error2.style.display = 'none';
+            return totalExpenses;
+        }
+    }
 }
 function getIncome() {
     const incomeInput = document.getElementById('income-input');
@@ -66,9 +76,13 @@ function getIncome() {
         error.style.display = 'block';
         const error2 = getErrorExpenses();
         error2.style.display = 'none';
+        //clearing text field..
+        const expensesField = document.getElementById('total-expenses');
+        expensesField.innerText = '';
+        const balanceField = document.getElementById('balance');
+        balanceField.innerText = '';
     }
     else {
-        //incomeInput.value = '';
         return income;
     }
 }
@@ -88,11 +102,11 @@ function getBalance() {
             error.style.display = 'none';
             const error2 = getErrorExpenses();
             error2.style.display = 'block';
-
+            //clearing text field..
             const expensesField = document.getElementById('total-expenses');
             expensesField.innerText = '';
-
-
+            const balanceField = document.getElementById('balance');
+            balanceField.innerText = '';
         }
         else {
             const balance = totalIncome - totalExpenses;
@@ -155,7 +169,6 @@ function getRemainingBalance() {
         }
     }
 }
-
 //Calculate button
 document.getElementById('button-calculate').addEventListener('click', function () {
     const balance = getBalance();
