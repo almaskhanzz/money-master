@@ -21,20 +21,26 @@ function getExpenses() {
         clothesInput.value = '';
     }
     //error handling
-    if (isNaN(foodCost) || isNaN(rentCost) || isNaN(clothesCost) || foodCost < 0 || rentCost < 0 || clothesCost < 0) {
-        clearfield();
+    const income = getIncome();
+    if (isNaN(foodCost) || isNaN(rentCost) || isNaN(clothesCost) || isNaN(income) || income < 0 || foodCost < 0 || rentCost < 0 || clothesCost < 0) {
+        //clearfield();
         const error = getError();
         error.style.display = 'block';
     }
     else {
         //calculating tolat expenses
         const totalExpenses = foodCost + rentCost + clothesCost;
-        const expensesField = document.getElementById('total-expenses');
-        expensesField.innerText = totalExpenses;
-
+        if (totalExpenses > income) {
+            const error = getError();
+            error.style.display = 'block';
+        }
+        else {
+            const expensesField = document.getElementById('total-expenses');
+            expensesField.innerText = totalExpenses;
+            return totalExpenses;
+        }
         //clearing input field..
-        clearfield();
-        return totalExpenses;
+        //clearfield();
     }
 
 }
@@ -47,7 +53,7 @@ function getIncome() {
         error.style.display = 'block';
     }
     else {
-        incomeInput.value = '';
+        //incomeInput.value = '';
         return income;
     }
 }
@@ -63,6 +69,7 @@ function getBalance() {
         const balance = totalIncome - totalExpenses;
         const balanceField = document.getElementById('balance');
         balanceField.innerText = balance;
+        //hiding error msg
         const error = getError();
         error.style.display = 'none';
         return balance;
@@ -74,20 +81,35 @@ function getSave() {
     const save = parseFloat(saveInput.value);
     const saveIncome = getIncome();
     //calculating saving amount
-    const savingAmount = (saveIncome * save) / 100;
+    if (isNaN(save) || save < 0) {
+        const error = getError();
+        error.style.display = 'none';
+    }
+    else {
+        const savingAmount = (saveIncome * save) / 100;
+        return savingAmount;
+    }
 
-    const savingField = document.getElementById('saving-amount');
-    savingField.innerText = savingAmount;
-    return savingAmount;
 }
 function getRemainingBalance() {
     //remaining balance
-    const totalBalance = getBalance();
     const totalSavingAmount = getSave();
+    // console.log("saving amount", totalSavingAmount);
+    const totalBalance = getBalance();
+    //console.log("balance", totalBalance);
     //calculating remaining balance
-    const remainingBalance = totalBalance - totalSavingAmount;
-    const remainBalanceField = document.getElementById('remaining-balance');
-    remainBalanceField.innerText = remainingBalance;
+    if (totalBalance > totalSavingAmount) {
+        const remainingBalance = totalBalance - totalSavingAmount;
+
+        const savingField = document.getElementById('saving-amount');
+        savingField.innerText = totalSavingAmount;
+        const remainBalanceField = document.getElementById('remaining-balance');
+        remainBalanceField.innerText = remainingBalance;
+    }
+    else {
+        const error = getError();
+        error.style.display = 'none';
+    }
 }
 
 //Calculate button
