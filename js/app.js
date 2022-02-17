@@ -16,6 +16,19 @@ function getAmountError() {
     const err = document.getElementById('err-msg-amount');
     return err;
 }
+//claer text field if gets error
+function clearTextField() {
+    const expensesField = document.getElementById('total-expenses');
+    expensesField.innerText = '';
+    const balanceField = document.getElementById('balance');
+    balanceField.innerText = '';
+}
+function clearTextAmountField() {
+    const savingField = document.getElementById('saving-amount');
+    savingField.innerText = '';
+    const remainBalanceField = document.getElementById('remaining-balance');
+    remainBalanceField.innerText = '';
+}
 //functions..
 function getExpenses() {
     //expenses......
@@ -31,11 +44,7 @@ function getExpenses() {
     //error handling
     if (isNaN(foodCost) || isNaN(rentCost) || isNaN(clothesCost) || foodCost < 0 || rentCost < 0 || clothesCost < 0) {
         //clear text field..
-        const expensesField = document.getElementById('total-expenses');
-        expensesField.innerText = '';
-        const balanceField = document.getElementById('balance');
-        balanceField.innerText = '';
-
+        clearTextField();
         const error = getError();
         error.style.display = 'block';
         const error2 = getErrorExpenses();
@@ -45,11 +54,8 @@ function getExpenses() {
         //calculating tolat expenses
         const totalIncome = getIncome();
         if (isNaN(totalIncome) || totalIncome < 0) {
-            const expensesField = document.getElementById('total-expenses');
-            expensesField.innerText = '';
-            const balanceField = document.getElementById('balance');
-            balanceField.innerText = '';
-
+            //clear text field
+            clearTextField();
             const error = getError();
             error.style.display = 'block';
             const error2 = getErrorExpenses();
@@ -77,10 +83,7 @@ function getIncome() {
         const error2 = getErrorExpenses();
         error2.style.display = 'none';
         //clearing text field..
-        const expensesField = document.getElementById('total-expenses');
-        expensesField.innerText = '';
-        const balanceField = document.getElementById('balance');
-        balanceField.innerText = '';
+        clearTextField();
     }
     else {
         return income;
@@ -103,10 +106,7 @@ function getBalance() {
             const error2 = getErrorExpenses();
             error2.style.display = 'block';
             //clearing text field..
-            const expensesField = document.getElementById('total-expenses');
-            expensesField.innerText = '';
-            const balanceField = document.getElementById('balance');
-            balanceField.innerText = '';
+            clearTextField();
         }
         else {
             const balance = totalIncome - totalExpenses;
@@ -133,10 +133,7 @@ function getRemainingBalance() {
         const error2 = getAmountError();
         error2.style.display = 'none';
         //clearing text field
-        const savingField = document.getElementById('saving-amount');
-        savingField.innerText = '';
-        const remainBalanceField = document.getElementById('remaining-balance');
-        remainBalanceField.innerText = '';
+        clearTextAmountField();
     }
     else {
         const saveIncome = getIncome();
@@ -149,18 +146,15 @@ function getRemainingBalance() {
             const error2 = getEmptyError();
             error2.style.display = 'none';
             //clearing text field
-            const savingField = document.getElementById('saving-amount');
-            savingField.innerText = '';
-            const remainBalanceField = document.getElementById('remaining-balance');
-            remainBalanceField.innerText = '';
+            clearTextAmountField();
         }
         else {
             const remainingBalance = totalBalance - savingAmount;
-
+            const remainingBalanced = remainingBalance.toFixed(2)
             const savingField = document.getElementById('saving-amount');
             savingField.innerText = savingAmount;
             const remainBalanceField = document.getElementById('remaining-balance');
-            remainBalanceField.innerText = remainingBalance;
+            remainBalanceField.innerText = remainingBalanced;
             //hiding error msg
             const error = getEmptyError();
             error.style.display = 'none';
