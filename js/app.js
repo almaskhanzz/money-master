@@ -75,40 +75,43 @@ function getBalance() {
         return balance;
     }
 }
-function getSave() {
+function getRemainingBalance() {
+    //remaining balance
+    // const totalSavingAmount = getSave();
     //save
     const saveInput = document.getElementById('save-input');
     const save = parseFloat(saveInput.value);
-    const saveIncome = getIncome();
     //calculating saving amount
     if (isNaN(save) || save < 0) {
         const error = getError();
-        error.style.display = 'none';
-    }
-    else {
-        const savingAmount = (saveIncome * save) / 100;
-        return savingAmount;
-    }
-
-}
-function getRemainingBalance() {
-    //remaining balance
-    const totalSavingAmount = getSave();
-    // console.log("saving amount", totalSavingAmount);
-    const totalBalance = getBalance();
-    //console.log("balance", totalBalance);
-    //calculating remaining balance
-    if (totalBalance > totalSavingAmount) {
-        const remainingBalance = totalBalance - totalSavingAmount;
+        error.style.display = 'block';
 
         const savingField = document.getElementById('saving-amount');
-        savingField.innerText = totalSavingAmount;
+        savingField.innerText = '';
         const remainBalanceField = document.getElementById('remaining-balance');
-        remainBalanceField.innerText = remainingBalance;
+        remainBalanceField.innerText = '';
     }
     else {
-        const error = getError();
-        error.style.display = 'none';
+        const saveIncome = getIncome();
+        const savingAmount = (saveIncome * save) / 100;
+        const totalBalance = getBalance()
+        //calculating remaining balance
+        if (savingAmount > totalBalance) {
+            const error = getError();
+            error.style.display = 'block';
+            const savingField = document.getElementById('saving-amount');
+            savingField.innerText = '';
+            const remainBalanceField = document.getElementById('remaining-balance');
+            remainBalanceField.innerText = '';
+        }
+        else {
+            const remainingBalance = totalBalance - savingAmount;
+
+            const savingField = document.getElementById('saving-amount');
+            savingField.innerText = savingAmount;
+            const remainBalanceField = document.getElementById('remaining-balance');
+            remainBalanceField.innerText = remainingBalance;
+        }
     }
 }
 
